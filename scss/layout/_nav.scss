@@ -72,6 +72,14 @@
 
     @media all and (min-width: $large) {
 
+        .main-nav-folder {
+            justify-content: flex-start;
+        }
+
+        .brand {
+            height: 80px;
+        }
+
         %mobile-controls {
             display: none;
         }
@@ -79,33 +87,26 @@
         .open-menu-holder {
             display: block;
             position: static;
-            // background-color: transparent;
+            background-color: transparent;
             width: auto;
             max-width: 100%;
             padding: 0;
-            align-self: flex-start;
+            align-self: flex-end;
+        
+            .menu {
+                background-color: #fff;
 
-        }
-
-        .menu {
-            // background-color: #fff;
-
-            .menu-item {
-                display: inline-block;
-                margin: 0 20px;
-                font-size: initial;
+                .menu-item {
+                    display: inline-block;
+                    margin: 0 20px;
+                    font-size: initial;
                 
-                                
-
-                a {
-                    color: black;
-                    // font-weight: 700;
-                    // font-size: initial;
-                    
+                    a {
+                        color: $secondary-color;
+                        font-weight: 700;                                            
+                    }
                 }
             }
         }
     }
-
-
 }
