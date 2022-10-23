@@ -9,6 +9,11 @@
     .footer-nav {
         .menu {
             @include menu-list;
+            padding: 20px 0;
+
+            .menu-item {
+                padding: 15px 0;
+            }
         }
     }
 }

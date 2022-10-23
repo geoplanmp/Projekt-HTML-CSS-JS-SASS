@@ -603,6 +603,14 @@ section .section-header p {
   .appointment form textarea {
     margin: 60px 0;
   }
+  .appointment form .appointment-message {
+    color: #fff;
+    width: 100%;
+    font-weight: 700;
+  }
+  .appointment form .border-toggle {
+    border: 6px solid red;
+  }
 }
 
 .team {
@@ -664,6 +672,7 @@ section .section-header p {
 .page-footer .footer-nav .menu {
   list-style: none;
   background-color: #fff;
+  padding: 20px 0;
 }
 .page-footer .footer-nav .menu .menu-item {
   display: inline-block;
@@ -675,6 +684,9 @@ section .section-header p {
   color: #473452;
   font-weight: 700;
   text-decoration: none;
+}
+.page-footer .footer-nav .menu .menu-item {
+  padding: 15px 0;
 }
 
 .btn-form, .btn-secondary, .btn-primary {

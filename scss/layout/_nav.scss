@@ -94,7 +94,7 @@
             align-self: flex-end;
         
             .menu {
-                @include menu-list;
+                @include menu-list;                      
             }
         }
     }
