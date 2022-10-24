@@ -8,12 +8,11 @@ document.getElementsByClassName('mobile-close')[0].addEventListener('click', fun
 
 console.log('Sprawdzenie czy pola formularza są wypełnione');
 
-let btnForm = document.getElementsByClassName('btn-form')[0];
+let btnForm = document.getElementById('appointment-form');
 
-const checkField = () => {
-    // event.preventDefault();
-    // let errors = [];
-    // // let appointmentName = document.getElementsByClassName('form-field');
+const formMakeAppoint = (event) => {
+    event.preventDefault();
+    // let appointmentName = document.getElementsByClassName('form-field');
     let appointmentName = document.getElementById('appointment-name');
     let appointmentEmail = document.getElementById('appointment-email');
     let appointmentService = document.getElementById('appointment-service');
@@ -112,7 +111,7 @@ const checkField = () => {
         appointmentMessage: appointmentMessage.value.trim(),
     };
 
-    console.log(user);
+    // console.log(user);
 
     fetch(`https://akademia108.pl/api/ajax/post-appointment.php`, {
         headers: {
@@ -128,7 +127,7 @@ const checkField = () => {
 
             if (!resJSON.errors) {
                 btnForm.reset();
-                pMsg.innerText = resJSON.messages[0];
+                pMsg.innerText = `Dziękujemy ${resJSON.appointment.name}. Zostałeś zapisany!`;
             }
         })
 
@@ -137,4 +136,4 @@ const checkField = () => {
         });
 }
 
-btnForm.addEventListener('submit', checkField);
+btnForm.addEventListener('submit', formMakeAppoint);
