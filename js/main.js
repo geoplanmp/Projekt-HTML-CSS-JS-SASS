@@ -10,8 +10,8 @@ console.log('Sprawdzenie czy pola formularza są wypełnione');
 
 let btnForm = document.getElementById('appointment-form');
 
-const formMakeAppoint = (event) => {
-    event.preventDefault();
+const formMakeAppoint = () => {
+    // event.preventDefault();
     // let appointmentName = document.getElementsByClassName('form-field');
     let appointmentName = document.getElementById('appointment-name');
     let appointmentEmail = document.getElementById('appointment-email');
@@ -37,7 +37,7 @@ const formMakeAppoint = (event) => {
 
     if (appointmentEmail.value.trim()==='') {
         pMsg.innerText = 'Wypełnij pole e-mail !';
-        appointmentEmail.add('border-toggle');
+        appointmentEmail.classList.add('border-toggle');
     }
 
     else {
@@ -101,17 +101,17 @@ const formMakeAppoint = (event) => {
 
     console.log('Wysyłanie formularza');
 
-    let user = {
-        appointmentName: appointmentName.value.trim(),
-        appointmentEmail: appointmentEmail.value.trim(),
-        appointmentService: appointmentService.value.trim(),
-        appointmentPhone: appointmentPhone.value.trim(),
-        appointmentDate: appointmentDate.value.trim(),
-        appointmentTime: appointmentTime.value.trim(),
-        appointmentMessage: appointmentMessage.value.trim(),
+    let appointment = {
+        name: appointmentName.value.trim(),
+        email: appointmentEmail.value.trim(),
+        service: appointmentService.value.trim(),
+        phone: appointmentPhone.value.trim(),
+        date: appointmentDate.value.trim(),
+        time: appointmentTime.value.trim(),
+        message: appointmentMessage.value.trim(),
     };
 
-    // console.log(user);
+    // console.log(appointment);
 
     fetch(`https://akademia108.pl/api/ajax/post-appointment.php`, {
         headers: {
@@ -119,7 +119,7 @@ const formMakeAppoint = (event) => {
         },
         mode: 'cors',
         method: 'POST',
-        body: JSON.stringify(user)
+        body: JSON.stringify(appointment)
     })
         .then(res => res.json())
         .then(resJSON => {
