@@ -1,8 +1,8 @@
-document.getElementsByClassName('mobile-hamburger')[0].addEventListener('click', function(){
+document.getElementsByClassName('mobile-hamburger')[0].addEventListener('click', function () {
     document.getElementsByClassName('open-menu-holder')[0].classList.toggle('open');
 });
 
-document.getElementsByClassName('mobile-close')[0].addEventListener('click', function(){
+document.getElementsByClassName('mobile-close')[0].addEventListener('click', function () {
     document.getElementsByClassName('open-menu-holder')[0].classList.toggle('open');
 });
 
@@ -11,10 +11,10 @@ console.log('Sprawdzenie czy pola formularza są wypełnione');
 
 
 const formMakeAppoint = (appointment) => {
-    
+
     let pMsg = document.getElementsByClassName('appointment-message')[0];
     console.log('Wysyłanie formularza');
- 
+
 
     fetch(`https://akademia108.pl/api/ajax/post-appointment.php`, {
         headers: {
@@ -24,19 +24,19 @@ const formMakeAppoint = (appointment) => {
         method: 'POST',
         body: JSON.stringify(appointment)
     })
-    .then(res => res.json())
-    .then(resJSON => {
+        .then(res => res.json())
+        .then(resJSON => {
             console.log(resJSON);
 
-        if (!resJSON.errors) {
-            btnForm.reset();
-            pMsg.innerText = `Dziękujemy ${resJSON.appointment.name}. Zostałeś zapisany!`;
-        }
-    })
+            if (!resJSON.errors) {
+                btnForm.reset();
+                pMsg.innerText = `Dziękujemy ${resJSON.appointment.name}. Zostałeś zapisany!`;
+            }
+        })
 
-    .catch((error) => {
-        console.log('Error', error);
-    });
+        .catch((error) => {
+            console.log('Error', error);
+        });
 }
 
 let btnForm = document.getElementById('appointment-form');
@@ -44,6 +44,7 @@ const sendAppointment = (event) => {
     event.preventDefault();
 
     let allFields = false;
+    let allFields2 = false;
     // let formFields = document.getElementsByClassName('form-field');
     let appointmentName = document.getElementById('appointment-name');
     let appointmentEmail = document.getElementById('appointment-email');
@@ -66,6 +67,16 @@ const sendAppointment = (event) => {
         message: appointmentMessage.value.trim(),
     };
 
+    let allFieldsErrors = {
+        name: true,
+        email: true,
+        service: true,
+        phone: true,
+        date: true,
+        time: true,
+        message: true,
+    };
+
     // for(let i = 0; i<formFields.length; i++) {
     //     if (formFields[i].value === '') {
     //         allFields = false;
@@ -76,77 +87,142 @@ const sendAppointment = (event) => {
     //     }
     // }
 
-    if (appointmentName.value.trim()==='') {
-        allFields = false;
-        appointmentName.classList.add('border-toggle');
-    } else {
-        allFields = true;
-        appointmentName.classList.remove('border-toggle');  
-    }
-
-    if (appointmentEmail.value.trim()==='') {
-        allFields = false;
-        appointmentEmail.classList.add('border-toggle');
-    } else {
-        allFields = true;
-        appointmentEmail.classList.remove('border-toggle');
-    }
-
-    // if (!appointmentEmail.value.includes('@')) {
-    //     pMsg.innerText = 'Wpisz znak @';
+    // for (let i=0; i<allFieldsErrors; i++) {
+    //     if (allFieldsErrors) {
+    //         formMakeAppoint(appointment);
+    //     } else {
+    //         appointmentMessage.classList.add('border-toggle');
+    //         pMsg.innerText = 'Wypełnij wymagane pole';
+    //     }
     // }
 
-    if (appointmentService.value.trim()==='') {
-        allFields = false;
+    if (appointmentName.value.trim() === '') {
+        allFieldsErrors.name = false;
+        appointmentName.classList.add('border-toggle');
+    } else {
+        allFieldsErrors.name = true;
+        appointmentName.classList.remove('border-toggle');
+    }
+
+    if (appointmentEmail.value.trim() === '') {
+        allFieldsErrors.email = false;
+        appointmentEmail.classList.add('border-toggle');
+    } else if (appointmentEmail.value.trim() === '') {
+        allFieldsErrors.email = true;
+        appointmentEmail.classList.remove('border-toggle');
+    }
+    // else if (!appointmentEmail.value.includes('@')) {
+    // allFields2 = false;
+    // appointmentEmail.classList.add('border-toggle');
+    // } else if (!appointmentEmail.value.includes('@')) {
+    // allFields2 = true;
+    // appointmentEmail.classList.remove('border-toggle');
+    // }
+    if (!appointmentEmail.value.includes('@')) {
+        allFieldsErrors.email = false;
+        pMsg.innerText = 'Wpisz znak @';
+    }
+
+    if (appointmentService.value.trim() === '') {
+        allFieldsErrors.service = false;
         appointmentService.classList.add('border-toggle');
     } else {
-        allFields = true;
+        allFieldsErrors.service = true;
         appointmentService.classList.remove('border-toggle');
     }
 
-    if (appointmentPhone.value.trim()==='') {
-        allFields = false;
+    if (appointmentPhone.value.trim() === '') {
+        allFieldsErrors.phone= false;
         appointmentPhone.classList.add('border-toggle');
     } else {
-        allFields = true;
+        allFieldsErrors.phone = true;
         appointmentPhone.classList.remove('border-toggle');
     }
 
-    if (appointmentDate.value.trim()==='') {
-        allFields = false;
+    if (appointmentDate.value.trim() === '') {
+        allFieldsErrors.date = false;
         appointmentDate.classList.add('border-toggle');
     } else {
-        allFields = true;
+        allFieldsErrors.date = true;
         appointmentDate.classList.remove('border-toggle');
     }
 
-    if (appointmentTime.value.trim()==='') {
-        allFields = false;
+    if (appointmentTime.value.trim() === '') {
+        allFieldsErrors.time = false;
         appointmentTime.classList.add('border-toggle');
     } else {
-        allFields = true;
+        allFieldsErrors.time = true;
         appointmentTime.classList.remove('border-toggle');
     }
 
-    if (appointmentMessage.value.trim()==='') {
-        allFields = false;
+    if (appointmentMessage.value.trim() === '') {
+        allFieldsErrors.message = false;
         appointmentMessage.classList.add('border-toggle');
     } else {
-        allFields = true;
+        allFieldsErrors.message = true;
         appointmentMessage.classList.remove('border-toggle');
     }
 
-    // if (!appointmentPhone.value==number1) {
-    //         allFields = false;
-    //         pMsg.innerText = 'Wypełnij za pomocą cyfr';
-    // }
+    console.log(((/[a-zA-Z]/).test(appointmentPhone.value)));
+    if (((/[a-zA-Z]/).test(appointmentPhone.value)) || appointmentPhone.value.length > 9) {
+        allFieldsErrors.phone = false;
+        console.log(((/[a-zA-Z]/).test(appointmentPhone.value)));
+        pMsg.innerText = 'Wypełnij za pomocą cyfr';
+        console.log(appointmentPhone.value);
+    }
 
-    if (allFields) {
+    if (allFieldsErrors.name) {
+        formMakeAppoint(appointment);
+    } else {
+        appointmentName.classList.add('border-toggle');
+        pMsg.innerText = 'Wypełnij wymagane pole';
+    }
+
+    if (allFieldsErrors.email) {
+        formMakeAppoint(appointment);
+    } else {
+        appointmentEmail.classList.add('border-toggle');
+        pMsg.innerText = 'Wypełnij wymagane pole';
+    }
+
+    if (allFieldsErrors.phone) {
+        formMakeAppoint(appointment);
+    } else {
+        appointmentPhone.classList.add('border-toggle');
+        pMsg.innerText = 'Wypełnij wymagane pole';
+    }
+
+    if (allFieldsErrors.date) {
+        formMakeAppoint(appointment);
+    } else {
+        appointmentDate.classList.add('border-toggle');
+        pMsg.innerText = 'Wypełnij wymagane pole';
+    }
+
+    if (allFieldsErrors.time) {
+        formMakeAppoint(appointment);
+    } else {
+        appointmentTime.classList.add('border-toggle');
+        pMsg.innerText = 'Wypełnij wymagane pole';
+    }
+
+    if (allFieldsErrors.message) {
         formMakeAppoint(appointment);
     } else {
         appointmentMessage.classList.add('border-toggle');
         pMsg.innerText = 'Wypełnij wymagane pole';
     }
 }
+    // if (allFields2) {
+    //     formMakeAppoint(appointment);
+    // } else {
+    //     appointmentMessage.classList.add('border-toggle');
+    //     pMsg.innerText = 'Wpisz znak @';  
+    // }
+
+
+
+
+// }
 
 btnForm.addEventListener('submit', sendAppointment);
